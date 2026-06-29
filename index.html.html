@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Родинна подорож · Липень 2025</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+:root {
+  --bg: #F8F7F4;
+  --surface: #FFFFFF;
+  --surface2: #F1EFE8;
+  --border: rgba(0,0,0,0.09);
+  --border-strong: rgba(0,0,0,0.15);
+  --text: #1A1A18;
+  --text2: #6B6B67;
+  --text3: #9B9B96;
+  --radius: 10px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 4px 12px rgba(0,0,0,0.04);
+  --accent: #185FA5;
+  --accent-bg: #E6F1FB;
+  --font: -apple-system, 'Segoe UI', system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141412;
+    --surface: #1E1E1B;
+    --surface2: #272724;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.14);
+    --text: #F0EFE8;
+    --text2: #9B9B96;
+    --text3: #5F5E5A;
+    --accent: #85B7EB;
+    --accent-bg: #0C2A45;
+  }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; min-height: 100vh; }
+a { color: var(--accent); }
+
+/* Layout */
+.app { max-width: 900px; margin: 0 auto; padding: 1rem; }
+.app-header { padding: 1.25rem 0 1rem; border-bottom: 0.5px solid var(--border); margin-bottom: 1.25rem; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.app-title { font-size: 20px; font-weight: 600; letter-spacing: -0.3px; }
+.app-meta { font-size: 12px; color: var(--text2); margin-top: 3px; }
+
+/* Nav tabs */
+.main-nav { display: flex; gap: 2px; margin-bottom: 1.25rem; border-bottom: 0.5px solid var(--border); overflow-x: auto; padding-bottom: 0; }
+.mnav-btn { padding: 8px 14px; background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; font-size: 13px; color: var(--text2); margin-bottom: -1px; white-space: nowrap; display: inline-flex; align-items: center; gap: 5px; font-family: var(--font); transition: color .15s; }
+.mnav-btn:hover { color: var(--text); }
+.mnav-btn.on { color: var(--text); border-bottom-color: var(--text); font-weight: 500; }
+.view { display: none; }
+.view.on { display: block; }
+
+/* Cards */
+.card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: .875rem; box-shadow: var(--shadow); }
+.card-title { font-size: 13px; font-weight: 500; color: var(--text2); text-transform: uppercase; letter-spacing: .05em; margin-bottom: .75rem; }
+
+/* KPI grid */
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; margin-bottom: 1rem; }
+.kpi { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); padding: .7rem 1rem; box-shadow: var(--shadow); }
+.kpi-l { font-size: 11px; color: var(--text2); }
+.kpi-v { font-size: 22px; font-weight: 600; margin-top: 2px; letter-spacing: -0.5px; }
+
+/* Timeline */
+.tl-wrap { overflow-x: auto; margin-bottom: 1rem; padding-bottom: 4px; }
+.tl-grid { display: flex; gap: 4px; min-width: max-content; }
+.dc { width: 68px; cursor: pointer; flex-shrink: 0; border-radius: var(--radius); padding: 5px 3px; transition: background .12s; }
+.dc:hover { background: var(--surface2); }
+.dc.on { background: var(--surface); box-shadow: var(--shadow); }
+.dn { text-align: center; font-size: 13px; font-weight: 500; padding: 3px 4px; border-radius: 6px; margin-bottom: 2px; }
+.dc.on .dn { background: var(--text); color: var(--bg); }
+.dw { text-align: center; font-size: 10px; color: var(--text3); margin-bottom: 4px; }
+.dseg { height: 6px; border-radius: 3px; margin-bottom: 3px; }
+.dlbl { font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 2px 4px; border-radius: 4px; font-weight: 500; text-align: center; }
+
+/* Legend */
+.legend { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+.leg { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text2); }
+.leg-d { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+
+/* Detail panel */
+.detail { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: .875rem; box-shadow: var(--shadow); }
+.detail-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: .85rem; flex-wrap: wrap; }
+.detail-city { font-size: 16px; font-weight: 600; }
+.detail-date { font-size: 12px; color: var(--text2); margin-top: 2px; }
+.det-badge { padding: 3px 11px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+
+/* Inner tabs */
+.itabs { display: flex; gap: 1px; border-bottom: 0.5px solid var(--border); margin-bottom: .85rem; overflow-x: auto; }
+.itab { padding: 6px 12px; background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; font-size: 12px; color: var(--text2); margin-bottom: -1px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; font-family: var(--font); }
+.itab:hover { color: var(--text); }
+.itab.on { color: var(--text); border-bottom-color: var(--text); font-weight: 500; }
+.itab-pane { display: none; }
+.itab-pane.on { display: block; }
+
+/* Schedule */
+.sched { display: flex; flex-direction: column; gap: 5px; }
+.se { display: flex; gap: 10px; align-items: flex-start; }
+.se-time { font-size: 12px; color: var(--text2); min-width: 42px; padding-top: 4px; flex-shrink: 0; font-variant-numeric: tabular-nums; }
+.se-body { flex: 1; background: var(--surface2); border-radius: 8px; padding: 7px 10px; }
+.se-title { font-size: 13px; font-weight: 500; }
+.se-sub { font-size: 12px; color: var(--text2); margin-top: 1px; }
+.se-tag { display: inline-block; font-size: 10px; padding: 1px 8px; border-radius: 20px; margin-top: 4px; font-weight: 500; }
+
+/* Tasks */
+.task-list { display: flex; flex-direction: column; gap: 4px; }
+.task { display: flex; align-items: center; gap: 9px; padding: 8px 10px; background: var(--surface2); border-radius: 8px; cursor: pointer; user-select: none; transition: background .12s; }
+.task:hover { background: var(--border); }
+.tcb { width: 17px; height: 17px; border: 1.5px solid var(--border-strong); border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+.tcb.done { background: var(--text); border-color: var(--text); }
+.tcb.done::after { content: '✓'; font-size: 11px; color: var(--bg); font-weight: 600; }
+.tlbl { flex: 1; font-size: 13px; }
+.tlbl.done { text-decoration: line-through; color: var(--text3); }
+.ttag { font-size: 10px; padding: 1px 8px; border-radius: 20px; flex-shrink: 0; font-weight: 500; }
+
+/* Budget */
+.bud-grid { display: grid; grid-template-columns: 1fr 70px 90px 64px; gap: 5px; align-items: center; }
+.bud-hd { font-size: 11px; color: var(--text3); font-weight: 500; padding-bottom: 5px; border-bottom: 0.5px solid var(--border); }
+.bud-row { padding: 5px 0; border-bottom: 0.5px solid var(--border); }
+.bud-row:last-child { border-bottom: none; }
+.bud-cat { font-size: 13px; color: var(--text2); }
+.bud-plan { font-size: 13px; font-weight: 500; text-align: right; }
+.bud-actual input { width: 100%; padding: 4px 6px; font-size: 12px; border-radius: 6px; border: 0.5px solid var(--border-strong); background: var(--surface); color: var(--text); text-align: right; font-family: var(--font); }
+.bud-diff { font-size: 12px; font-weight: 500; text-align: right; }
+.bud-total { font-weight: 600; padding-top: 7px; border-top: 1px solid var(--border-strong); margin-top: 4px; font-size: 13px; }
+
+/* Hotel */
+.hotel-card { background: var(--surface2); border-radius: 8px; padding: 10px 12px; }
+.hotel-name { font-weight: 500; font-size: 14px; }
+.hotel-note { font-size: 12px; color: var(--text2); margin-top: 4px; line-height: 1.5; }
+.hotel-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--accent); margin-top: 8px; text-decoration: none; }
+
+/* Note box */
+.note-box { background: #FAEEDA; border-radius: 8px; padding: 10px 12px; font-size: 13px; color: #633806; line-height: 1.6; display: flex; gap: 8px; }
+@media (prefers-color-scheme: dark) { .note-box { background: #2A1F00; color: #F5C06A; } }
+
+/* Packing */
+.pack-mtabs { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px; }
+.pmtab { padding: 5px 12px; border: 0.5px solid var(--border-strong); border-radius: 20px; cursor: pointer; font-size: 12px; background: none; color: var(--text2); font-family: var(--font); transition: all .12s; }
+.pmtab.on { background: var(--text); color: var(--bg); border-color: transparent; }
+.pcat-f { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 10px; }
+.pchip { padding: 3px 10px; border: 0.5px solid var(--border); border-radius: 20px; cursor: pointer; font-size: 11px; background: none; color: var(--text2); font-family: var(--font); }
+.pchip.on { background: var(--surface2); border-color: var(--border-strong); color: var(--text); }
+.pbar-wrap { height: 4px; background: var(--surface2); border-radius: 2px; margin-bottom: 10px; overflow: hidden; }
+.pbar-fill { height: 100%; border-radius: 2px; background: var(--text); transition: width .3s; }
+.plist { display: flex; flex-direction: column; gap: 3px; }
+.pi { display: flex; align-items: center; gap: 8px; padding: 6px 9px; border-radius: 8px; background: var(--surface2); cursor: pointer; transition: background .12s; }
+.pi:hover { background: var(--border); }
+.pcb { width: 15px; height: 15px; border: 1.5px solid var(--border-strong); border-radius: 3px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.pcb.done { background: var(--text); border-color: var(--text); }
+.pcb.done::after { content: '✓'; font-size: 10px; color: var(--bg); font-weight: 600; }
+.plbl { flex: 1; font-size: 13px; }
+.plbl.done { text-decoration: line-through; color: var(--text3); }
+.pwho { font-size: 10px; padding: 1px 7px; border-radius: 20px; flex-shrink: 0; font-weight: 500; }
+.pcat-hd { font-size: 11px; font-weight: 500; color: var(--text3); text-transform: uppercase; letter-spacing: .04em; margin: 10px 0 4px 2px; }
+
+/* Schedule editor */
+.evt-list { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+.evt { display: grid; grid-template-columns: 68px 1fr auto auto; gap: 6px; align-items: center; background: var(--surface2); border-radius: 8px; padding: 7px 9px; cursor: pointer; transition: background .12s; }
+.evt:hover { background: var(--border); }
+.evt.sel { outline: 1.5px solid var(--accent); }
+.evt input[type=time] { font-size: 12px; padding: 3px 5px; border-radius: 6px; border: 0.5px solid var(--border-strong); background: var(--surface); color: var(--text); width: 100%; font-family: var(--font); cursor: pointer; }
+.evt-title { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.evt-sub { font-size: 11px; color: var(--text2); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.evt-tag { font-size: 10px; padding: 1px 7px; border-radius: 20px; font-weight: 500; white-space: nowrap; }
+.del-btn { background: none; border: none; cursor: pointer; color: var(--text3); font-size: 18px; line-height: 1; padding: 2px 4px; border-radius: 4px; }
+.del-btn:hover { color: #A32D2D; background: #FCEBEB; }
+.edit-expand { background: var(--surface); border: 0.5px solid var(--border-strong); border-radius: 8px; padding: 8px 10px; margin-top: 3px; display: none; }
+.edit-expand.on { display: block; }
+.edit-expand input, .edit-expand select { width: 100%; font-size: 12px; padding: 5px 8px; border-radius: 6px; border: 0.5px solid var(--border-strong); background: var(--surface2); color: var(--text); margin-bottom: 5px; font-family: var(--font); }
+.add-evt-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: flex-start; padding-top: 10px; border-top: 0.5px solid var(--border); margin-top: 4px; }
+.add-evt-row input, .add-evt-row select { font-size: 12px; padding: 5px 8px; border-radius: 6px; border: 0.5px solid var(--border-strong); background: var(--surface2); color: var(--text); font-family: var(--font); }
+.add-evt-row input[type=time] { width: 80px; flex-shrink: 0; }
+.add-evt-row input[type=text] { flex: 1; min-width: 110px; }
+
+/* Buttons */
+.btn { padding: 7px 14px; border: 0.5px solid var(--border-strong); border-radius: var(--radius); background: none; color: var(--text); cursor: pointer; font-size: 13px; display: inline-flex; align-items: center; gap: 5px; font-family: var(--font); transition: background .12s; }
+.btn:hover { background: var(--surface2); }
+.btn-p { background: var(--text); color: var(--bg); border-color: transparent; }
+.btn-p:hover { opacity: .85; }
+.btn-sm { padding: 5px 10px; font-size: 12px; border-radius: 8px; }
+.btn-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: .75rem; }
+
+/* AI box */
+.ai-box { background: var(--surface2); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1rem; margin-top: .75rem; font-size: 13px; line-height: 1.7; display: none; }
+.spin { display: inline-block; width: 13px; height: 13px; border: 2px solid var(--border-strong); border-top-color: var(--text2); border-radius: 50%; animation: sp .7s linear infinite; vertical-align: -2px; margin-right: 5px; }
+@keyframes sp { to { transform: rotate(360deg); } }
+
+/* Misc */
+.empty { color: var(--text3); font-size: 13px; text-align: center; padding: 1.5rem; border: 0.5px dashed var(--border-strong); border-radius: var(--radius); }
+.sep { height: 0.5px; background: var(--border); margin: .75rem 0; }
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="app-header">
+  <div>
+    <div class="app-title">✈ Родинна подорож · Липень 2025</div>
+    <div class="app-meta">Бровари → Варшава → Лондон → Дублін → Варшава → Бровари · 4–18 липня · Саша, Олена, Наташа</div>
+  </div>
+  <button class="btn btn-p btn-sm" onclick="aiAnalyze()"><i class="ti ti-sparkles"></i> AI аналіз ↗</button>
+</div>
+
+<div class="main-nav">
+  <button class="mnav-btn on" onclick="showView('dashboard',this)"><i class="ti ti-layout-dashboard"></i> Дашборд</button>
+  <button class="mnav-btn" onclick="showView('schedule',this)"><i class="ti ti-calendar-event"></i> Розклад</button>
+  <button class="mnav-btn" onclick="showView('pack',this)"><i class="ti ti-briefcase"></i> Речі</button>
+  <button class="mnav-btn" onclick="showView('budget',this)"><i class="ti ti-currency-euro"></i> Бюджет</button>
+</div>
+
+<!-- DASHBOARD -->
+<div id="view-dashboard" class="view on">
+  <div class="kpi-grid" id="kpi-grid"></div>
+  <div class="legend">
+    <div class="leg"><div class="leg-d" style="background:#7F77DD"></div>Бровари→Варшава (авто)</div>
+    <div class="leg"><div class="leg-d" style="background:#378ADD"></div>Варшава</div>
+    <div class="leg"><div class="leg-d" style="background:#D85A30"></div>Лондон</div>
+    <div class="leg"><div class="leg-d" style="background:#1D9E75"></div>Дублін</div>
+    <div class="leg"><div class="leg-d" style="background:#BA7517"></div>Повернення</div>
+  </div>
+  <div class="tl-wrap"><div class="tl-grid" id="tl-dash"></div></div>
+  <div id="dash-detail"></div>
+  <div class="btn-row">
+    <button class="btn btn-sm" onclick="aiDayPlan()"><i class="ti ti-calendar"></i> AI план дня ↗</button>
+    <button class="btn btn-sm" onclick="aiHotels()"><i class="ti ti-building"></i> AI готелі ↗</button>
+    <button class="btn btn-sm" onclick="aiRouteOpt()"><i class="ti ti-route"></i> AI логістика ↗</button>
+  </div>
+  <div id="ai-dash" class="ai-box"></div>
+</div>
+
+<!-- SCHEDULE EDITOR -->
+<div id="view-schedule" class="view">
+  <div class="card" style="margin-bottom:.75rem">
+    <div style="font-size:13px;color:var(--text2);display:flex;align-items:center;gap:6px">
+      <i class="ti ti-pencil" style="font-size:15px"></i>
+      Клікни на подію щоб редагувати · час змінюй прямо у полі · додавай і видаляй події
+    </div>
+  </div>
+  <div class="tl-wrap"><div class="tl-grid" id="tl-sched"></div></div>
+  <div class="detail" id="sched-panel"></div>
+  <div class="btn-row">
+    <button class="btn btn-sm" onclick="moveEvt(-1)"><i class="ti ti-arrow-up"></i> Вгору</button>
+    <button class="btn btn-sm" onclick="moveEvt(1)"><i class="ti ti-arrow-down"></i> Вниз</button>
+    <button class="btn btn-sm" onclick="sortDay()"><i class="ti ti-sort-ascending"></i> По часу</button>
+    <button class="btn btn-sm" onclick="aiCheckDay()"><i class="ti ti-sparkles"></i> AI перевірка дня ↗</button>
+    <button class="btn btn-sm" onclick="exportTxt()"><i class="ti ti-download"></i> Завантажити .txt</button>
+  </div>
+  <div id="ai-sched" class="ai-box"></div>
+</div>
+
+<!-- PACKING LIST -->
+<div id="view-pack" class="view">
+  <div class="card">
+    <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap">
+      <input id="pack-new-name" type="text" placeholder="Нова річ..." style="flex:1;min-width:110px;font-size:13px;padding:6px 9px;border-radius:8px;border:0.5px solid var(--border-strong);background:var(--surface2);color:var(--text);font-family:var(--font)" onkeydown="if(event.key==='Enter')addPackItem()">
+      <select id="pack-new-cat" style="font-size:12px;padding:6px 8px;border-radius:8px;border:0.5px solid var(--border-strong);background:var(--surface2);color:var(--text);font-family:var(--font)">
+        <option>Документи</option><option>Медицина</option><option>Одяг</option><option>Взуття</option>
+        <option>Гігієна</option><option>Техніка</option><option>Аксесуари</option><option>Фінанси</option><option>Розваги</option><option>Інше</option>
+      </select>
+      <select id="pack-new-who" style="font-size:12px;padding:6px 8px;border-radius:8px;border:0.5px solid var(--border-strong);background:var(--surface2);color:var(--text);font-family:var(--font)">
+        <option value="all">Всі</option><option>Саша</option><option>Олена</option><option>Наташа</option>
+      </select>
+      <button class="btn btn-sm btn-p" onclick="addPackItem()"><i class="ti ti-plus"></i> Додати</button>
+    </div>
+    <div class="pack-mtabs" id="pack-mtabs"></div>
+    <div class="pcat-f" id="pack-cats"></div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+      <div class="pbar-wrap" style="flex:1"><div class="pbar-fill" id="pbar"></div></div>
+      <span style="font-size:12px;color:var(--text2);white-space:nowrap" id="pbar-lbl">0/0</span>
+    </div>
+    <div id="pack-list"></div>
+  </div>
+</div>
+
+<!-- BUDGET -->
+<div id="view-budget" class="view">
+  <div class="kpi-grid" id="bud-kpi"></div>
+  <div id="bud-days"></div>
+</div>
+
+<div id="ai-global" class="ai-box"></div>
+</div>
+
+<script>
+// ─── DATA ──────────────────────────────────────────────────────────────────
+const TAG_OPTS=[
+  {v:'авто',c:'#EEEDFE',t:'#3C3489'},{v:'кордон',c:'#FAECE7',t:'#712B13'},
+  {v:'готель',c:'#E6F1FB',t:'#0C447C'},{v:'їжа',c:'#F1EFE8',t:'#444441'},
+  {v:'туризм',c:'#E1F5EE',t:'#085041'},{v:'парк',c:'#EAF3DE',t:'#27500A'},
+  {v:'аеропорт',c:'#FAEEDA',t:'#633806'},{v:'літак',c:'#E6F1FB',t:'#0C447C'},
+  {v:'робота',c:'#FCEBEB',t:'#791F1F'},{v:'банк',c:'#FAECE7',t:'#712B13'},
+  {v:'ВАЖЛИВО',c:'#FAECE7',t:'#712B13'},{v:'зупинка',c:'#F1EFE8',t:'#444441'},
+  {v:'музей',c:'#E1F5EE',t:'#085041'},{v:'шопінг',c:'#EEEDFE',t:'#3C3489'},
+  {v:'відпочинок',c:'#FAEEDA',t:'#633806'},{v:'родина',c:'#E1F5EE',t:'#085041'},
+  {v:'прибуття',c:'#E1F5EE',t:'#085041'},{v:'культура',c:'#E1F5EE',t:'#085041'},
+  {v:'транспорт',c:'#E6F1FB',t:'#0C447C'},{v:'друзі',c:'#EEEDFE',t:'#3C3489'},
+  {v:'фінал',c:'#E1F5EE',t:'#085041'},{v:'рішення',c:'#F1EFE8',t:'#444441'},
+];
+function tc(v){const f=TAG_OPTS.find(t=>t.v===v);return f||{c:'#F1EFE8',t:'#444441'};}
+function tagSel(){return TAG_OPTS.map(t=>`<option value="${t.v}">${t.v}</option>`).join('');}
+
+const DAYS=[
+  {d:'4',m:'лип',wd:'Пт',seg:'drive',city:'Бровари→Львів',segColor:'#7F77DD',
+   note:'Виїзд о 16:00 з Броварів → ніч у Львові → кордон зранку 5-го. Так черги менші.',
+   events:[
+     {id:'e0_0',t:'16:00',title:'Виїзд з Броварів',sub:'Завантажуємо авто, стартуємо',tag:'авто'},
+     {id:'e0_1',t:'18:00',title:'Зупинка Житомир',sub:'Заправка, кава ~30хв',tag:'зупинка'},
+     {id:'e0_2',t:'22:00',title:'Прибуття Львів',sub:'Готель/хостел — переночувати перед кордоном',tag:'готель'},
+   ],
+   tasks:[
+     {id:'t0_0',label:'Green Card (авто-страховка для ЄС)',tag:'страховка',tc:'#FAEEDA',tt:'#633806'},
+     {id:'t0_1',label:'Паспорти — перевірити термін дії (мін 6 міс)',tag:'документи',tc:'#E6F1FB',tt:'#0C447C'},
+     {id:'t0_2',label:'Готівка PLN + EUR',tag:'фінанси',tc:'#EAF3DE',tt:'#27500A'},
+     {id:'t0_3',label:'Забронювати готель Львів на 1 ніч',tag:'бронь',tc:'#E6F1FB',tt:'#0C447C'},
+   ],
+   budget:[
+     {cat:'Пальне Бровари→Львів (~530км)',plan:55},
+     {cat:'Готель Львів (1 ніч)',plan:60},
+     {cat:'Їжа в дорозі',plan:25},
+   ],
+   hotel:{name:'Готель Львів — 1 ніч',link:'https://www.booking.com/searchresults.uk.html?city=-1272524&checkin=2025-07-04&checkout=2025-07-05&group_adults=3&order=price',note:'Центр або біля траси на Ягодин · бюджет $50-70 · рано виїжджаємо'},
+  },
+  {d:'5',m:'лип',wd:'Сб',seg:'drive',city:'Львів→Варшава',segColor:'#7F77DD',
+   note:'Ягодин — менш завантажений ніж Краковець. Вранці черги менші. ~80км від Львова.',
+   events:[
+     {id:'e1_0',t:'06:00',title:'Виїзд зі Львова',sub:'Кордон чекає — стартуємо рано',tag:'авто'},
+     {id:'e1_1',t:'07:30',title:'КПП Ягодин або Дорогуськ',sub:'Green Card, паспорти, страховка · черга 30хв–2год',tag:'кордон'},
+     {id:'e1_2',t:'10:00',title:'Польська сторона — заправка',sub:'Польська ціна дешевша за українську',tag:'зупинка'},
+     {id:'e1_3',t:'12:30',title:'Зупинка Люблін',sub:'Обід ~1 год · ~200км від кордону',tag:'їжа'},
+     {id:'e1_4',t:'16:00',title:'Прибуття Варшава',sub:'Чекін готель + паркінг',tag:'готель'},
+   ],
+   tasks:[
+     {id:'t1_0',label:'Готель Варшава (5–9 лип) — паркінг + сніданки',tag:'бронь',tc:'#E6F1FB',tt:'#0C447C'},
+   ],
+   budget:[
+     {cat:'Пальне Львів→Варшава (~700км PL)',plan:70},
+     {cat:'Їжа в дорозі',plan:35},
+     {cat:'Платні дороги Польща (A1/A2)',plan:18},
+   ],
+   hotel:{name:'Готель Варшава — чекін сьогодні',link:'https://www.booking.com/searchresults.uk.html?city=-534757&checkin=2025-07-05&checkout=2025-07-09&group_adults=3&nflt=facility%3D2%3Bmealplan%3D1',note:'Паркінг + сніданки · центр Śródmieście або Stare Miasto · €150-200/ніч'},
+  },
+  {d:'6',m:'лип',wd:'Нд',seg:'warsaw',city:'Варшава',segColor:'#378ADD',
+   note:'',
+   events:[
+     {id:'e2_0',t:'09:00',title:'Сніданок у готелі',sub:'',tag:'готель'},
+     {id:'e2_1',t:'10:30',title:'Старе місто — Ринкова площа',sub:'Замок Королів, вузькі вулички',tag:'туризм'},
+     {id:'e2_2',t:'13:00',title:'Обід Starówka',sub:'Zapiecek або Kompania Piwna',tag:'їжа'},
+     {id:'e2_3',t:'15:00',title:'Łazienki Park',sub:'Тінь, ставок, спокій — Олені добре',tag:'парк'},
+     {id:'e2_4',t:'19:00',title:'Вечеря',sub:'',tag:'їжа'},
+   ],
+   tasks:[],
+   budget:[
+     {cat:'Готель',plan:180},
+     {cat:'Харчування',plan:65},
+     {cat:'Транспорт місто',plan:15},
+   ],
+   hotel:{name:'Той самий готель Варшава',note:''},
+  },
+  {d:'7',m:'лип',wd:'Пн',seg:'warsaw',city:'Варшава',segColor:'#378ADD',
+   note:'',
+   events:[
+     {id:'e3_0',t:'09:00',title:'Сніданок',sub:'',tag:'готель'},
+     {id:'e3_1',t:'10:00',title:'Робочі зустрічі (Саша — весь день)',sub:'',tag:'робота'},
+     {id:'e3_2',t:'10:00',title:'Олена + Наташа — шопінг',sub:'Złote Tarasy або Arkadia mall',tag:'шопінг'},
+     {id:'e3_3',t:'19:00',title:'Спільна вечеря',sub:'',tag:'родина'},
+   ],
+   tasks:[
+     {id:'t3_0',label:'Підготувати матеріали до робочих зустрічей',tag:'робота',tc:'#FCEBEB',tt:'#791F1F'},
+   ],
+   budget:[
+     {cat:'Готель',plan:180},
+     {cat:'Харчування',plan:75},
+     {cat:'Шопінг (Олена+Наташа)',plan:120},
+   ],
+   hotel:{name:'Той самий готель Варшава',note:''},
+  },
+  {d:'8',m:'лип',wd:'Вт',seg:'warsaw',city:'Варшава',segColor:'#378ADD',
+   note:'',
+   events:[
+     {id:'e4_0',t:'09:00',title:'Сніданок',sub:'',tag:'готель'},
+     {id:'e4_1',t:'10:00',title:'Банк — відкриття рахунку',sub:'Саша + Олена · паспорти + ІПН + адреса',tag:'банк'},
+     {id:'e4_2',t:'13:00',title:'Обід',sub:'',tag:'їжа'},
+     {id:'e4_3',t:'15:00',title:'Вільний час',sub:'Наташа шопінг, Олена відпочинок',tag:'відпочинок'},
+   ],
+   tasks:[
+     {id:'t4_0',label:'Список документів для банку (уточнити заздалегідь)',tag:'банк',tc:'#FAECE7',tt:'#712B13'},
+     {id:'t4_1',label:'Адреса і час роботи банку (ING або PKO BP)',tag:'банк',tc:'#FAECE7',tt:'#712B13'},
+   ],
+   budget:[
+     {cat:'Готель',plan:180},
+     {cat:'Харчування',plan:60},
+     {cat:'Шопінг',plan:80},
+   ],
+   hotel:{name:'Той самий готель Варшава',note:''},
+  },
+  {d:'9',m:'лип',wd:'Ср',seg:'warsaw',city:'Варшава',segColor:'#378ADD',
+   note:'Після посольства — одразу на Modlin (50км). Або летимо сьогодні, або ночуємо і летимо зранку 10-го.',
+   events:[
+     {id:'e5_0',t:'08:00',title:'Ранній сніданок',sub:'Виїзд на посольство',tag:'готель'},
+     {id:'e5_1',t:'09:30',title:'Посольство США — Наташа',sub:'Aleje Ujazdowskie 29/31 · прийти за 30хв до запису',tag:'ВАЖЛИВО'},
+     {id:'e5_2',t:'12:30',title:'Обід',sub:'',tag:'їжа'},
+     {id:'e5_3',t:'14:30',title:'Виїзд на аеропорт Modlin',sub:'~50км від центру · 1.5 год до вильоту',tag:'аеропорт'},
+     {id:'e5_4',t:'17:00',title:'Рейс Modlin → Stansted',sub:'Ryanair або Wizzair',tag:'літак'},
+   ],
+   tasks:[
+     {id:'t5_0',label:'Всі документи для візи США Наташі (DS-160, фото, банк)',tag:'ВІЗИ',tc:'#FAECE7',tt:'#712B13'},
+     {id:'t5_1',label:'Квитки Modlin → Лондон Stansted',tag:'квитки',tc:'#E6F1FB',tt:'#0C447C'},
+     {id:'t5_2',label:'Паркінг Modlin P1 — передоплата онлайн (9–16 лип)',tag:'авто',tc:'#EEEDFE',tt:'#3C3489'},
+   ],
+   budget:[
+     {cat:'Готель (остання ніч Варшава)',plan:180},
+     {cat:'Збір за візу США (158 USD)',plan:145},
+     {cat:'Квитки на літак (3 ос)',plan:180},
+     {cat:'Таксі/авто → Modlin',plan:25},
+   ],
+   hotel:{name:'Паркінг Warsaw Modlin Airport',link:'https://www.modlinairport.pl/en/passengers/parking',note:'P1 довгостроковий ~8€/день · 7 днів = ~56€ · передоплата онлайн'},
+  },
+  {d:'10',m:'лип',wd:'Чт',seg:'london',city:'Лондон',segColor:'#D85A30',
+   note:'Прибуття Stansted → Stansted Express (47хв) → Liverpool Street → готель.',
+   events:[
+     {id:'e6_0',t:'01:00',title:'Прибуття Stansted',sub:'Stansted Express → Liverpool St → готель',tag:'прибуття'},
+     {id:'e6_1',t:'09:00',title:'Сніданок',sub:'',tag:'готель'},
+     {id:'e6_2',t:'10:00',title:'Tower of London',sub:'Бронювати онлайн £33/ос · черги менші зранку',tag:'туризм'},
+     {id:'e6_3',t:'13:00',title:'Borough Market',sub:'Street food — найстаріший ринок Лондона',tag:'їжа'},
+     {id:'e6_4',t:'15:00',title:'Tate Modern',sub:'Безкоштовно · добрий кондиціонер для Олени',tag:'музей'},
+     {id:'e6_5',t:'19:00',title:'Southbank увечері',sub:'Вид на Tower Bridge — золота година',tag:'туризм'},
+   ],
+   tasks:[
+     {id:'t6_0',label:'Stansted Express — квитки онлайн (дешевше)',tag:'транспорт',tc:'#E6F1FB',tt:'#0C447C'},
+     {id:'t6_1',label:'Oyster card або Contactless для метро',tag:'транспорт',tc:'#E6F1FB',tt:'#0C447C'},
+     {id:'t6_2',label:'Готель Лондон (10–13 лип) — Zone 1-2',tag:'бронь',tc:'#E6F1FB',tt:'#0C447C'},
+   ],
+   budget:[
+     {cat:'Stansted Express (3 ос)',plan:60},
+     {cat:'Готель Лондон',plan:260},
+     {cat:'Tower of London (3 ос)',plan:99},
+     {cat:'Харчування',plan:90},
+   ],
+   hotel:{name:'Шукати: Лондон Zone 1-2',link:'https://www.booking.com/searchresults.uk.html?city=-2601889&checkin=2025-07-10&checkout=2025-07-13&group_adults=3&nflt=mealplan%3D1',note:'Zone 1-2 · зі сніданками або Airbnb апартаменти на 3-х'},
+  },
+  {d:'11',m:'лип',wd:'Пт',seg:'london',city:'Лондон',segColor:'#D85A30',
+   note:'',
+   events:[
+     {id:'e7_0',t:'09:00',title:'Сніданок',sub:'',tag:'готель'},
+     {id:'e7_1',t:'10:00',title:'Екскурсія з друзями',sub:'Нетуристичний Лондон — їх вибір',tag:'друзі'},
+     {id:'e7_2',t:'14:00',title:'Обід разом з друзями',sub:'',tag:'їжа'},
+     {id:'e7_3',t:'19:00',title:'Вечеря або pub',sub:'',tag:'друзі'},
+   ],
+   tasks:[
+     {id:'t7_0',label:'Підтвердити зустріч з друзями — час і місце',tag:'контакти',tc:'#EEEDFE',tt:'#3C3489'},
+   ],
+   budget:[
+     {cat:'Готель',plan:260},
+     {cat:'Гнучкий день (їжа + активності)',plan:90},
+   ],
+   hotel:{name:'Той самий готель Лондон',note:''},
+  },
+  {d:'12',m:'лип',wd:'Сб',seg:'london',city:'Лондон',segColor:'#D85A30',
+   note:'',
+   events:[
+     {id:'e8_0',t:'09:00',title:'Сніданок',sub:'',tag:'готель'},
+     {id:'e8_1',t:'10:00',title:'Notting Hill + Portobello Market',sub:'Тільки по суботах — антикварний ринок',tag:'туризм'},
+     {id:'e8_2',t:'13:00',title:'Hyde Park',sub:'Пікнік у тіні — Олені ідеально',tag:'парк'},
+     {id:'e8_3',t:'16:00',title:'V&A Museum',sub:'Безкоштовно · один з кращих у світі',tag:'музей'},
+     {id:'e8_4',t:'19:00',title:'Вечеря Covent Garden',sub:'',tag:'їжа'},
+   ],
+   tasks:[],
+   budget:[
+     {cat:'Готель',plan:260},
+     {cat:'Харчування',plan:90},
+     {cat:'Метро',plan:20},
+     {cat:'Шопінг',plan:120},
+   ],
+   hotel:{name:'Той самий готель Лондон',note:''},
+  },
+  {d:'13',m:'лип',wd:'Нд',seg:'london',city:'Лондон→Дублін',segColor:'#D85A30',
+   note:'',
+   events:[
+     {id:'e9_0',t:'07:30',title:'Ранній сніданок + чекаут',sub:'Валізи залишити на ресепшн',tag:'готель'},
+     {id:'e9_1',t:'09:00',title:'Buckingham Palace',sub:'Зміна варти 10:30 — прийти за годину',tag:'туризм'},
+     {id:'e9_2',t:'12:00',title:'Забрати валізи → Stansted',sub:'Stansted Express від Liverpool St',tag:'аеропорт'},
+     {id:'e9_3',t:'16:00',title:'Рейс Stansted → Дублін',sub:'Ryanair STN→DUB ~1год 25хв',tag:'літак'},
+     {id:'e9_4',t:'18:30',title:'Прибуття Дублін',sub:'Aircoach або Dublin Bus → центр ~40хв',tag:'прибуття'},
+   ],
+   tasks:[
+     {id:'t9_0',label:'Квитки Лондон Stansted → Дублін 13 лип',tag:'квитки',tc:'#E6F1FB',tt:'#0C447C'},
+     {id:'t9_1',label:'Готель Дублін (13–16 лип) — центр, пішки до Trinity',tag:'бронь',tc:'#E6F1FB',tt:'#0C447C'},
+   ],
+   budget:[
+     {cat:'Квитки Лондон→Дублін (3 ос)',plan:150},
+     {cat:'Stansted Express (3 ос)',plan:60},
+     {cat:'Готель Дублін',plan:200},
+     {cat:'Харчування',plan:70},
+   ],
+   hotel:{name:'Шукати: центр Дубліна',link:'https://www.booking.com/searchresults.uk.html?city=-601862&checkin=2025-07-13&checkout=2025-07-16&group_adults=3',note:'Biля Temple Bar або Trinity College · пішохідний центр'},
+  },
+  {d:'14',m:'лип',wd:'Пн',seg:'dublin',city:'Дублін',segColor:'#1D9E75',
+   note:'Ключовий день: Наташа оцінює Дублін як студентське місто. Гід розкаже про TCD, UCD, DCU.',
+   events:[
+     {id:'e10_0',t:'09:00',title:'Irish Full Breakfast',sub:'Традиційний ірландський — обов\'язково',tag:'їжа'},
+     {id:'e10_1',t:'10:30',title:'Trinity College + Book of Kells',sub:'€16/ос · бронювати онлайн',tag:'туризм'},
+     {id:'e10_2',t:'13:00',title:'Grafton Street',sub:'Пішохідна вулиця — вуличні музиканти',tag:'туризм'},
+     {id:'e10_3',t:'15:00',title:'Тур по університетах з гідом',sub:'TCD, UCD, DCU — вступ, вартість, відчуття',tag:'ВАЖЛИВО'},
+     {id:'e10_4',t:'19:00',title:'Temple Bar увечері',sub:'',tag:'культура'},
+   ],
+   tasks:[
+     {id:'t10_0',label:'Знайти гіда по університетах Дубліна (Airbnb Experiences або localguide.ie)',tag:'гід',tc:'#E1F5EE',tt:'#085041'},
+     {id:'t10_1',label:'Book of Kells — квитки онлайн',tag:'квиток',tc:'#E6F1FB',tt:'#0C447C'},
+   ],
+   budget:[
+     {cat:'Готель',plan:200},
+     {cat:'Trinity College (3 ос)',plan:48},
+     {cat:'Гід по університетах',plan:150},
+     {cat:'Харчування',plan:75},
+   ],
+   hotel:{name:'Той самий готель Дублін',link:'https://www.booking.com/searchresults.uk.html?city=-601862&checkin=2025-07-13&checkout=2025-07-16&group_adults=3',note:''},
+  },
+  {d:'15',m:'лип',wd:'Вт',seg:'dublin',city:'Дублін',segColor:'#1D9E75',
+   note:'',
+   events:[
+     {id:'e11_0',t:'09:00',title:'Сніданок',sub:'',tag:'готель'},
+     {id:'e11_1',t:'10:00',title:'Kilmainham Gaol',sub:'€8/ос · бронювати онлайн · ірландська незалежність',tag:'музей'},
+     {id:'e11_2',t:'13:00',title:'Обід + відпочинок Олени',sub:'Уникати полуденного сонця',tag:'відпочинок'},
+     {id:'e11_3',t:'15:00',title:'St. Stephen\'s Green',sub:'Парк у центрі — тінь, озеро',tag:'парк'},
+     {id:'e11_4',t:'20:00',title:'The Cobblestone або O\'Donoghue\'s',sub:'Жива ірландська музика — must',tag:'культура'},
+   ],
+   tasks:[],
+   budget:[
+     {cat:'Готель',plan:200},
+     {cat:'Kilmainham (3 ос)',plan:24},
+     {cat:'Харчування + паб',plan:90},
+   ],
+   hotel:{name:'Той самий готель Дублін',note:''},
+  },
+  {d:'16',m:'лип',wd:'Ср',seg:'return',city:'Дублін→Варшава',segColor:'#BA7517',
+   note:'',
+   events:[
+     {id:'e12_0',t:'07:00',title:'Чекаут',sub:'Валізи → ресепшн',tag:'готель'},
+     {id:'e12_1',t:'08:30',title:'Dublin Castle (зовні)',sub:'Безкоштовно · 30хв',tag:'туризм'},
+     {id:'e12_2',t:'10:00',title:'Аеропорт Дублін',sub:'За 2.5 год до вильоту',tag:'аеропорт'},
+     {id:'e12_3',t:'13:00',title:'Рейс Дублін → Варшава Modlin',sub:'Ryanair DUB→WMI ~2год 40хв',tag:'літак'},
+     {id:'e12_4',t:'17:30',title:'Modlin — забрати авто',sub:'Паркінг P1 · перевірити авто',tag:'авто'},
+     {id:'e12_5',t:'19:00',title:'Рішення: їдемо чи ночуємо',sub:'Якщо втомлені — ніч у Варшаві',tag:'рішення'},
+   ],
+   tasks:[
+     {id:'t12_0',label:'Квитки Дублін → Варшава Modlin 16 лип',tag:'квитки',tc:'#E6F1FB',tt:'#0C447C'},
+     {id:'t12_1',label:'Підтвердити паркінг Modlin — термін і сума',tag:'авто',tc:'#EEEDFE',tt:'#3C3489'},
+   ],
+   budget:[
+     {cat:'Квитки Дублін→Варшава (3 ос)',plan:180},
+     {cat:'Паркінг Modlin (7 днів × 8€)',plan:56},
+     {cat:'Готель Варшава (опціонально)',plan:0},
+     {cat:'Вечеря',plan:40},
+   ],
+   hotel:{name:'Опціонально: ніч у Варшаві',link:'https://www.booking.com/searchresults.uk.html?city=-534757&checkin=2025-07-16&checkout=2025-07-17&group_adults=3&order=price',note:'Тільки якщо надто втомлені для нічної дороги'},
+  },
+  {d:'17',m:'лип',wd:'Чт',seg:'return',city:'Варшава→Бровари',segColor:'#BA7517',
+   note:'Виїжджати рано — кордон Ягодин найменш завантажений рано вранці в будній день.',
+   events:[
+     {id:'e13_0',t:'06:00',title:'Виїзд з Варшави',sub:'',tag:'авто'},
+     {id:'e13_1',t:'09:30',title:'Кордон Польща→Україна',sub:'Ягодин вранці · менше черг',tag:'кордон'},
+     {id:'e13_2',t:'11:00',title:'Зупинка після кордону',sub:'Заправка, перекус',tag:'зупинка'},
+     {id:'e13_3',t:'18:00',title:'Прибуття Бровари',sub:'Вдома! · ~550км від кордону',tag:'фінал'},
+   ],
+   tasks:[
+     {id:'t13_0',label:'Перевірити страховку авто для повернення',tag:'документи',tc:'#FAECE7',tt:'#712B13'},
+   ],
+   budget:[
+     {cat:'Пальне PL→UA (~700км)',plan:75},
+     {cat:'Їжа в дорозі',plan:25},
+     {cat:'Платні дороги',plan:10},
+   ],
+   hotel:{name:'—',note:'Вдома 🏠'},
+  },
+];
+
+const PACK_ITEMS=[
+  {id:'p1',name:'Паспорти (всі 3)',cat:'Документи',who:'all'},
+  {id:'p2',name:'Green Card (авто-страховка ЄС)',cat:'Документи',who:'all'},
+  {id:'p3',name:'Медична страховка (3 ос)',cat:'Документи',who:'all'},
+  {id:'p4',name:'Документи для візи США (DS-160, фото)',cat:'Документи',who:'Наташа'},
+  {id:'p5',name:'Документи для відкриття рахунку',cat:'Документи',who:'all'},
+  {id:'p6',name:'Міжнародне водійське посвідчення',cat:'Документи',who:'Саша'},
+  {id:'p7',name:'Ліки від СКВ (місячний запас)',cat:'Медицина',who:'Олена'},
+  {id:'p8',name:'SPF 50+ сонцезахисний крем (великий)',cat:'Медицина',who:'Олена'},
+  {id:'p9',name:'Капелюх з широкими крисами',cat:'Одяг',who:'Олена'},
+  {id:'p10',name:'Сонцезахисні окуляри',cat:'Аксесуари',who:'Олена'},
+  {id:'p11',name:'Аптечка (знеболювальне, пластир, антисептик)',cat:'Медицина',who:'all'},
+  {id:'p12',name:'Ноутбук для роботи (зустрічі 7 лип)',cat:'Техніка',who:'Саша'},
+  {id:'p13',name:'Зарядники ноутбук + телефони (3 шт)',cat:'Техніка',who:'all'},
+  {id:'p14',name:'Павербанк',cat:'Техніка',who:'all'},
+  {id:'p15',name:'Адаптер розеток UK (тип G)',cat:'Техніка',who:'all'},
+  {id:'p16',name:'Навушники',cat:'Техніка',who:'Наташа'},
+  {id:'p17',name:'Куртка-вітровка (Лондон прохолодний)',cat:'Одяг',who:'Саша'},
+  {id:'p18',name:'Куртка-вітровка (Лондон прохолодний)',cat:'Одяг',who:'Олена'},
+  {id:'p19',name:'Куртка-вітровка (Лондон прохолодний)',cat:'Одяг',who:'Наташа'},
+  {id:'p20',name:'Зручне взуття для ходьби (мін 15км/день)',cat:'Взуття',who:'all'},
+  {id:'p21',name:'Формальне взуття (банк, посольство)',cat:'Взуття',who:'Саша'},
+  {id:'p22',name:'Гроші готівка EUR + GBP + PLN',cat:'Фінанси',who:'Саша'},
+  {id:'p23',name:'Дорожній замок для валізи',cat:'Аксесуари',who:'all'},
+  {id:'p24',name:'Компресійні мішки для одягу',cat:'Аксесуари',who:'all'},
+  {id:'p25',name:'Книга або Kindle',cat:'Розваги',who:'Олена'},
+  {id:'p26',name:'Автомобільний зарядник USB-C',cat:'Техніка',who:'Саша'},
+  {id:'p27',name:'Офлайн-карти Maps.me (UA, PL, UK, IE)',cat:'Техніка',who:'Саша'},
+  {id:'p28',name:'Роумінг або eSIM Europe (перевірити)',cat:'Техніка',who:'all'},
+];
+
+// ─── STATE ─────────────────────────────────────────────────────────────────
+let selDashDay=0, selSchedDay=0, selSchedEvt=-1;
+let taskState={}, budActual={}, packState={}, extraPack=[...PACK_ITEMS];
+let packMember='all', packCat='all';
+const SEG_LABELS={drive:'Авто',warsaw:'Варшава',london:'Лондон',dublin:'Дублін',return:'Повернення'};
+
+// ─── VIEWS ─────────────────────────────────────────────────────────────────
+function showView(id, btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  document.querySelectorAll('.mnav-btn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('view-'+id).classList.add('on');
+  btn.classList.add('on');
+  if(id==='pack') renderPack();
+  if(id==='budget') renderBudgetView();
+}
+
+// ─── TIMELINE ──────────────────────────────────────────────────────────────
+function buildTl(containerId, selIdx, clickFn){
+  document.getElementById(containerId).innerHTML=DAYS.map((d,i)=>`
+    <div class="dc${i===selIdx?' on':''}" onclick="${clickFn}(${i})" role="button" aria-label="${d.d} ${d.m}">
+      <div class="dn">${d.d}</div>
+      <div class="dw">${d.wd}</div>
+      <div class="dseg" style="background:${d.segColor}"></div>
+      <div class="dlbl" style="background:${d.segColor}22;color:${d.segColor}">${d.city.length>7?d.city.slice(0,6)+'…':d.city}</div>
+    </div>`).join('');
+}
+
+// ─── DASHBOARD ─────────────────────────────────────────────────────────────
+function selectDashDay(i){selDashDay=i;buildTl('tl-dash',selDashDay,'selectDashDay');renderDashDetail();}
+
+function renderDashKpi(){
+  const allTasks=DAYS.flatMap(d=>d.tasks||[]);
+  const open=allTasks.filter(t=>!(taskState[t.id]??false)).length;
+  const totalPlan=DAYS.reduce((s,d)=>(d.budget||[]).reduce((ss,b)=>ss+b.plan,s),0);
+  const totalActual=Object.values(budActual).reduce((s,v)=>s+(+v||0),0);
+  document.getElementById('kpi-grid').innerHTML=`
+    <div class="kpi"><div class="kpi-l">Загальний план</div><div class="kpi-v" style="color:#D85A30">€${Math.round(totalPlan).toLocaleString()}</div></div>
+    <div class="kpi"><div class="kpi-l">Фактично</div><div class="kpi-v" style="color:#1D9E75">€${Math.round(totalActual)}</div></div>
+    <div class="kpi"><div class="kpi-l">Днів</div><div class="kpi-v" style="color:#378ADD">15</div></div>
+    <div class="kpi"><div class="kpi-l">Країни</div><div class="kpi-v">4</div></div>
+    <div class="kpi"><div class="kpi-l">Задач відкрито</div><div class="kpi-v" style="color:${open>5?'#D85A30':'#BA7517'}">${open}</div></div>`;
+}
+
+function renderDashDetail(){
+  const d=DAYS[selDashDay];
+  const tasks=(d.tasks||[]).map(t=>({...t,done:taskState[t.id]??false}));
+  const budTot=(d.budget||[]).reduce((s,b)=>s+b.plan,0);
+  const el=document.getElementById('dash-detail');
+  el.innerHTML=`
+  <div class="detail">
+    <div class="detail-head">
+      <div>
+        <div class="detail-city">${d.city}</div>
+        <div class="detail-date">${d.d} ${d.m} · ${d.wd}</div>
+      </div>
+      <span class="det-badge" style="background:${d.segColor}22;color:${d.segColor}">${SEG_LABELS[d.seg]||d.seg}</span>
+    </div>
+    ${d.note?`<div class="note-box" style="margin-bottom:.85rem"><i class="ti ti-info-circle" style="font-size:16px;flex-shrink:0;margin-top:1px"></i><span>${d.note}</span></div>`:''}
+    <div class="itabs" id="itabs-dash">
+      <button class="itab on" onclick="showItab('dash','sched',this)"><i class="ti ti-clock"></i> Розклад</button>
+      ${tasks.length?`<button class="itab" onclick="showItab('dash','tasks',this)"><i class="ti ti-checkbox"></i> Задачі <span style="background:#FAECE7;color:#712B13;border-radius:10px;padding:1px 7px;font-size:10px;margin-left:2px">${tasks.filter(t=>!t.done).length}</span></button>`:''}
+      <button class="itab" onclick="showItab('dash','bud',this)"><i class="ti ti-currency-euro"></i> Бюджет</button>
+      <button class="itab" onclick="showItab('dash','hotel',this)"><i class="ti ti-building"></i> Готель</button>
+    </div>
+    <div id="dit-dash-sched" class="itab-pane on">
+      <div class="sched">${d.events.map(e=>{const tg=tc(e.tag);return`
+        <div class="se">
+          <div class="se-time">${e.t}</div>
+          <div class="se-body">
+            <div class="se-title">${e.title}</div>
+            ${e.sub?`<div class="se-sub">${e.sub}</div>`:''}
+            <span class="se-tag" style="background:${tg.c};color:${tg.t}">${e.tag}</span>
+          </div>
+        </div>`}).join('')}
+      </div>
+    </div>
+    ${tasks.length?`<div id="dit-dash-tasks" class="itab-pane">
+      <div class="task-list">${tasks.map(t=>`
+        <div class="task" onclick="toggleTask('${t.id}')">
+          <div class="tcb${t.done?' done':''}"></div>
+          <span class="tlbl${t.done?' done':''}">${t.label}</span>
+          <span class="ttag" style="background:${t.tc};color:${t.tt}">${t.tag}</span>
+        </div>`).join('')}
+      </div>
+    </div>`:''}
+    <div id="dit-dash-bud" class="itab-pane">
+      <div class="bud-grid">
+        <span class="bud-hd">Категорія</span><span class="bud-hd" style="text-align:right">План</span><span class="bud-hd" style="text-align:right">Факт</span><span class="bud-hd" style="text-align:right">Δ</span>
+        ${(d.budget||[]).map(b=>{const k=`${selDashDay}_${b.cat}`;const a=budActual[k];const diff=a!==undefined?b.plan-+a:null;return`
+          <span class="bud-cat bud-row">${b.cat}</span>
+          <span class="bud-plan bud-row">€${b.plan}</span>
+          <div class="bud-actual bud-row"><input type="number" value="${a??''}" placeholder="0" onchange="saveBud(${selDashDay},'${b.cat.replace(/'/g,"\\'")}',this.value)" onclick="event.stopPropagation()"></div>
+          <span class="bud-diff bud-row" style="color:${diff===null?'var(--text3)':diff>=0?'#1D9E75':'#D85A30'}">${diff===null?'—':(diff>=0?'+':'−')+'€'+Math.abs(diff)}</span>
+        `;}).join('')}
+        <span class="bud-total">Разом</span><span class="bud-total" style="text-align:right;color:#D85A30">€${budTot}</span><span class="bud-total" style="text-align:right"></span><span class="bud-total" style="text-align:right"></span>
+      </div>
+    </div>
+    <div id="dit-dash-hotel" class="itab-pane">
+      <div class="hotel-card">
+        <div class="hotel-name">${d.hotel.name}</div>
+        ${d.hotel.note?`<div class="hotel-note">${d.hotel.note}</div>`:''}
+        ${d.hotel.link?`<a href="${d.hotel.link}" target="_blank" class="hotel-link"><i class="ti ti-external-link"></i> Пошук на Booking.com</a>`:''}
+      </div>
+    </div>
+  </div>`;
+}
+
+function showItab(scope, name, btn){
+  const prefix='dit-'+scope+'-';
+  document.querySelectorAll(`[id^="${prefix}"]`).forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('#itabs-'+scope+' .itab').forEach(b=>b.classList.remove('on'));
+  const pane=document.getElementById(prefix+name);
+  if(pane)pane.classList.add('on');
+  btn.classList.add('on');
+}
+
+function toggleTask(id){
+  taskState[id]=!(taskState[id]??false);
+  renderDashKpi();
+  renderDashDetail();
+}
+function saveBud(dayIdx,cat,val){
+  budActual[`${dayIdx}_${cat}`]=val;
+  renderDashKpi();
+}
+
+// ─── SCHEDULE EDITOR ───────────────────────────────────────────────────────
+function selectSchedDay(i){selSchedDay=i;selSchedEvt=-1;buildTl('tl-sched',selSchedDay,'selectSchedDay');renderSchedPanel();}
+
+function renderSchedPanel(){
+  const d=DAYS[selSchedDay];
+  document.getElementById('sched-panel').innerHTML=`
+    <div class="detail-head">
+      <div>
+        <div class="detail-city">${d.city} · ${d.d} ${d.m} (${d.wd})</div>
+        <div class="detail-date">Клікни на подію щоб редагувати · час міняй прямо у полі</div>
+      </div>
+      <span class="det-badge" style="background:${d.segColor}22;color:${d.segColor}">${SEG_LABELS[d.seg]}</span>
+    </div>
+    ${d.note?`<div class="note-box" style="margin-bottom:.85rem"><i class="ti ti-info-circle" style="font-size:15px;flex-shrink:0;margin-top:1px"></i><span>${d.note}</span></div>`:''}
+    <div class="evt-list" id="sched-evts">${renderEvts()}</div>
+    <div class="add-evt-row">
+      <input type="time" id="ne-t" value="09:00">
+      <input type="text" id="ne-title" placeholder="Назва події" onkeydown="if(event.key==='Enter')addEvt()">
+      <input type="text" id="ne-sub" placeholder="Деталі (опціонально)">
+      <select id="ne-tag">${tagSel()}</select>
+      <button class="btn btn-sm btn-p" onclick="addEvt()"><i class="ti ti-plus"></i> Додати</button>
+    </div>`;
+}
+
+function renderEvts(){
+  const evts=DAYS[selSchedDay].events;
+  if(!evts.length) return `<div class="empty">Подій немає — додайте першу</div>`;
+  return evts.map((e,i)=>{const tg=tc(e.tag);return`
+    <div style="display:flex;flex-direction:column;gap:2px">
+      <div class="evt${selSchedEvt===i?' sel':''}" onclick="selEvtFn(${i})">
+        <input type="time" value="${e.t}" onclick="event.stopPropagation()" onchange="changeTime(${i},this.value)">
+        <div style="min-width:0">
+          <div class="evt-title">${e.title}</div>
+          ${e.sub?`<div class="evt-sub">${e.sub}</div>`:''}
+        </div>
+        <span class="evt-tag" style="background:${tg.c};color:${tg.t}">${e.tag}</span>
+        <button class="del-btn" onclick="event.stopPropagation();delEvt(${i})" aria-label="Видалити">×</button>
+      </div>
+      <div class="edit-expand${selSchedEvt===i?' on':''}">
+        <input type="text" value="${e.title}" placeholder="Назва" onchange="changeField(${i},'title',this.value)" onclick="event.stopPropagation()">
+        <input type="text" value="${e.sub||''}" placeholder="Деталі..." onchange="changeField(${i},'sub',this.value)" onclick="event.stopPropagation()">
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <select onclick="event.stopPropagation()" onchange="changeField(${i},'tag',this.value)">${TAG_OPTS.map(t=>`<option value="${t.v}"${e.tag===t.v?' selected':''}>${t.v}</option>`).join('')}</select>
+          <button class="btn btn-sm" onclick="selSchedEvt=-1;document.getElementById('sched-evts').innerHTML=renderEvts()"><i class="ti ti-check"></i> Готово</button>
+        </div>
+      </div>
+    </div>`}).join('');
+}
+
+function selEvtFn(i){selSchedEvt=selSchedEvt===i?-1:i;document.getElementById('sched-evts').innerHTML=renderEvts();}
+function changeTime(i,v){DAYS[selSchedDay].events[i].t=v;document.getElementById('sched-evts').innerHTML=renderEvts();}
+function changeField(i,f,v){DAYS[selSchedDay].events[i][f]=v;}
+function delEvt(i){DAYS[selSchedDay].events.splice(i,1);selSchedEvt=-1;document.getElementById('sched-evts').innerHTML=renderEvts();}
+function addEvt(){
+  const title=document.getElementById('ne-title')?.value?.trim();
+  if(!title)return;
+  DAYS[selSchedDay].events.push({id:'u'+Date.now(),t:document.getElementById('ne-t').value||'09:00',title,sub:document.getElementById('ne-sub')?.value?.trim()||'',tag:document.getElementById('ne-tag')?.value||'зупинка'});
+  document.getElementById('ne-title').value='';document.getElementById('ne-sub').value='';
+  document.getElementById('sched-evts').innerHTML=renderEvts();
+}
+function moveEvt(dir){
+  if(selSchedEvt<0)return;
+  const evts=DAYS[selSchedDay].events,ni=selSchedEvt+dir;
+  if(ni<0||ni>=evts.length)return;
+  [evts[selSchedEvt],evts[ni]]=[evts[ni],evts[selSchedEvt]];
+  selSchedEvt=ni;
+  document.getElementById('sched-evts').innerHTML=renderEvts();
+}
+function sortDay(){
+  DAYS[selSchedDay].events.sort((a,b)=>a.t.localeCompare(b.t));
+  selSchedEvt=-1;
+  document.getElementById('sched-evts').innerHTML=renderEvts();
+}
+function exportTxt(){
+  const lines=['РОЗКЛАД ПОДОРОЖІ · ЛИПЕНЬ 2025 · Саша, Олена, Наташа',''];
+  DAYS.forEach(d=>{
+    lines.push(`=== ${d.d} ${d.m} (${d.wd}) — ${d.city} ===`);
+    d.events.forEach(e=>lines.push(`  ${e.t}  ${e.title}${e.sub?' — '+e.sub:''}`));
+    lines.push('');
+  });
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'}));
+  a.download='trip-july2025.txt';a.click();
+}
+
+// ─── PACKING ───────────────────────────────────────────────────────────────
+const MEMBER_C={Саша:{bg:'#E6F1FB',t:'#0C447C'},Олена:{bg:'#E1F5EE',t:'#085041'},Наташа:{bg:'#EEEDFE',t:'#3C3489'},all:{bg:'#F1EFE8',t:'#444441'}};
+function renderPack(){
+  const allCats=[...new Set(extraPack.map(p=>p.cat))];
+  let items=extraPack;
+  if(packMember!=='all') items=items.filter(i=>i.who===packMember||i.who==='all');
+  if(packCat!=='all') items=items.filter(i=>i.cat===packCat);
+  const done=items.filter(i=>packState[i.id]??false).length;
+  const pct=items.length?Math.round(done/items.length*100):0;
+  const cats=[...new Set(items.map(i=>i.cat))];
+  document.getElementById('pack-mtabs').innerHTML=
+    ['all','Саша','Олена','Наташа'].map(m=>`<button class="pmtab${packMember===m?' on':''}" onclick="packMember='${m}';renderPack()">${m==='all'?'Всі':m}</button>`).join('');
+  document.getElementById('pack-cats').innerHTML=
+    ['all',...allCats].map(c=>`<button class="pchip${packCat===c?' on':''}" onclick="packCat='${c}';renderPack()">${c==='all'?'Всі':c}</button>`).join('');
+  document.getElementById('pbar').style.width=pct+'%';
+  document.getElementById('pbar-lbl').textContent=`${done}/${items.length} (${pct}%)`;
+  document.getElementById('pack-list').innerHTML=cats.map(cat=>{
+    const ci=items.filter(i=>i.cat===cat);
+    const mc=MEMBER_C[packMember]||MEMBER_C.all;
+    return`<div class="pcat-hd">${cat}</div>
+    <div class="plist">${ci.map(item=>{const d=packState[item.id]??false;const wc=MEMBER_C[item.who]||MEMBER_C.all;return`
+      <div class="pi" onclick="togglePack('${item.id}')">
+        <div class="pcb${d?' done':''}"></div>
+        <span class="plbl${d?' done':''}">${item.name}</span>
+        <span class="pwho" style="background:${wc.bg};color:${wc.t}">${item.who==='all'?'Всі':item.who}</span>
+      </div>`}).join('')}
+    </div>`;
+  }).join('');
+}
+function togglePack(id){packState[id]=!(packState[id]??false);renderPack();}
+function addPackItem(){
+  const name=document.getElementById('pack-new-name')?.value?.trim();
+  if(!name)return;
+  extraPack.push({id:'pu'+Date.now(),name,cat:document.getElementById('pack-new-cat').value||'Інше',who:document.getElementById('pack-new-who').value||'all'});
+  document.getElementById('pack-new-name').value='';
+  renderPack();
+}
+
+// ─── BUDGET VIEW ───────────────────────────────────────────────────────────
+function renderBudgetView(){
+  const totalPlan=DAYS.reduce((s,d)=>(d.budget||[]).reduce((ss,b)=>ss+b.plan,s),0);
+  const totalActual=Object.values(budActual).reduce((s,v)=>s+(+v||0),0);
+  const diff=totalPlan-totalActual;
+  document.getElementById('bud-kpi').innerHTML=`
+    <div class="kpi"><div class="kpi-l">Загальний план</div><div class="kpi-v" style="color:#D85A30">€${Math.round(totalPlan).toLocaleString()}</div></div>
+    <div class="kpi"><div class="kpi-l">Витрачено факт</div><div class="kpi-v" style="color:#1D9E75">€${Math.round(totalActual)}</div></div>
+    <div class="kpi"><div class="kpi-l">${diff>=0?'Залишок':'Перевит.'}</div><div class="kpi-v" style="color:${diff>=0?'#1D9E75':'#D85A30'}">${diff>=0?'+':'−'}€${Math.abs(Math.round(diff))}</div></div>`;
+  document.getElementById('bud-days').innerHTML=DAYS.map((d,di)=>{
+    const tot=(d.budget||[]).reduce((s,b)=>s+b.plan,0);
+    const actTot=(d.budget||[]).reduce((s,b)=>{const k=`${di}_${b.cat}`;return s+(budActual[k]!==undefined?+budActual[k]:0);},0);
+    return`<div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.65rem;flex-wrap:wrap;gap:4px">
+        <div style="font-weight:500;font-size:13px">${d.d} ${d.m} · ${d.city}</div>
+        <div style="font-size:12px;color:var(--text2)">план <b style="color:#D85A30">€${tot}</b>${actTot?` · факт <b style="color:#1D9E75">€${actTot}</b>`:''}</div>
+      </div>
+      <div class="bud-grid">
+        ${(d.budget||[]).map(b=>{const k=`${di}_${b.cat}`;const a=budActual[k];const diff=a!==undefined?b.plan-+a:null;return`
+          <span class="bud-cat bud-row">${b.cat}</span>
+          <span class="bud-plan bud-row">€${b.plan}</span>
+          <div class="bud-actual bud-row"><input type="number" value="${a??''}" placeholder="0" onchange="budActual['${k}']=this.value;renderBudgetView()" onclick="event.stopPropagation()"></div>
+          <span class="bud-diff bud-row" style="color:${diff===null?'var(--text3)':diff>=0?'#1D9E75':'#D85A30'}">${diff===null?'—':(diff>=0?'+':'−')+'€'+Math.abs(diff)}</span>`;}).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ─── AI ────────────────────────────────────────────────────────────────────
+async function callAI(prompt){
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:900,messages:[{role:'user',content:prompt}]})});
+    const data=await r.json();
+    return data.content?.find(b=>b.type==='text')?.text||'Немає відповіді';
+  }catch(e){return'Помилка підключення до AI';}
+}
+function showAI(boxId, html){const b=document.getElementById(boxId);b.style.display='block';b.innerHTML=html;}
+
+async function aiAnalyze(){
+  const box='ai-global';showAI(box,'<span class="spin"></span>AI аналізує весь маршрут...');
+  const allTasks=DAYS.flatMap(d=>d.tasks||[]);
+  const open=allTasks.filter(t=>!(taskState[t.id]??false)).map(t=>t.label).join('; ');
+  const text=await callAI(`Сімейна подорож 4-18 липня 2025: Бровари→Львів(авто,4 лип вечір)→кордон Ягодин(5 лип зранку)→Варшава→Лондон Stansted(9 лип,Modlin)→Дублін Stansted(13 лип)→Варшава Modlin(16 лип)→Бровари(17 лип). Учасники: Олександр 48р CEO, Олена 49р СКВ-уникати сонця/перевтоми, Наташа 17р-подача візи США 8 лип. Відкриті задачі: ${open}. Дай 6 конкретних порад по ризикам і пріоритетам. Коротко, пункти, українською.`);
+  showAI(box,text.replace(/\n/g,'<br>'));
+}
+async function aiDayPlan(){
+  const d=DAYS[selDashDay];const box='ai-dash';
+  showAI(box,`<span class="spin"></span>AI аналізує ${d.d} ${d.m}...`);
+  const evtStr=d.events.map(e=>`${e.t} ${e.title}`).join(', ');
+  const text=await callAI(`День ${d.d} лип, ${d.city}. Розклад: ${evtStr}. Олена СКВ-уникати сонця, Наташа 17р. Перевір реалістичність тайммінгу, ризики для Олени, що не пропустити. 3-4 пункти, коротко, українською.`);
+  showAI(box,text.replace(/\n/g,'<br>'));
+}
+async function aiHotels(){
+  const d=DAYS[selDashDay];const box='ai-dash';
+  const city=d.seg==='warsaw'?'Варшава':d.seg==='london'?'Лондон':d.seg==='dublin'?'Дублін':'Львів';
+  showAI(box,`<span class="spin"></span>AI підбирає готелі у ${city}...`);
+  const budg=d.seg==='london'?'£120-180/ніч':d.seg==='dublin'?'€100-150/ніч':'€80-120/ніч';
+  const text=await callAI(`Готель у ${city} для 3 осіб (Олена СКВ-потрібен комфорт/тінь). Бюджет ${budg} зі сніданками. Потреба: центр, ${d.seg==='warsaw'?'паркінг обов\'язково,':''} тінь або кімнати з кондиціонером. Назви 2-3 конкретних готелі з районом і чому підходять. Коротко, українською.`);
+  showAI(box,text.replace(/\n/g,'<br>'));
+}
+async function aiRouteOpt(){
+  const box='ai-dash';
+  showAI(box,'<span class="spin"></span>AI перевіряє логістику...');
+  const text=await callAI(`Маршрут: Бровари→Львів(4 лип 16:00, ніч)→кордон Ягодин(5 лип 06:00)→Варшава(5 лип 16:00)→Лондон Stansted(9 лип Modlin)→Дублін Stansted(13 лип)→Варшава Modlin(16 лип)→Бровари(17 лип). Перевір: 1)Чи реально встигнути Варшава до Modlin після посольства 9 лип і вилетіти тим самим днем? 2)Ryanair DUB→WMI 16 лип — є прямий рейс? 3)Паркінг Modlin P1 vs P3 — що краще на 7 днів? 4)Кордон Ягодин чи Дорогуськ — що зараз менш завантажений? Конкретно, українською.`);
+  showAI(box,text.replace(/\n/g,'<br>'));
+}
+async function aiCheckDay(){
+  const d=DAYS[selSchedDay];const box='ai-sched';
+  showAI(box,`<span class="spin"></span>AI перевіряє ${d.d} ${d.m}...`);
+  const evtStr=d.events.map(e=>`${e.t} ${e.title}${e.sub?' ('+e.sub+')':''}`).join('; ');
+  const text=await callAI(`День ${d.d} лип, ${d.city}. Поточний розклад: ${evtStr}. Учасники: Олена СКВ (уникати сонця 11-15 год, перевтоми), Наташа 17р. Чи реалістичний тайммінг? Що перенести або змінити? Ризики? 3-4 пункти, коротко, українською.`);
+  showAI(box,text.replace(/\n/g,'<br>'));
+}
+
+// ─── INIT ──────────────────────────────────────────────────────────────────
+buildTl('tl-dash',selDashDay,'selectDashDay');
+renderDashKpi();
+renderDashDetail();
+buildTl('tl-sched',selSchedDay,'selectSchedDay');
+renderSchedPanel();
+</script>
+</body>
+</html>
